@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "loxsharp": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\users\\mamadde1\\source\\repos\\loxsharp\\testInput.txt"
+    }
+  }
+}

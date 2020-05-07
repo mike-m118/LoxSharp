@@ -1,0 +1,13 @@
+** -+/@
+
+// this is a comment
+!=<=>  =,,;;
+;
+	,	=
+			+/-
+"This is a string"++
+"This
+		is
+			a 
+				multiline";
+12 + 2 = 14.01;
