@@ -1,0 +1,10 @@
+class Test {
+	
+}
+
+fun Stuff(something) {
+	if (something > 12 and something <100.5){
+		print something;
+	}
+	
+}

@@ -11,6 +11,7 @@ namespace loxsharp
         private int start;
         private int current;
         private int lexLength;
+        private Dictionary<string, TokenType> reservedWords;
 
         public Scanner(string with)
         {
@@ -19,6 +20,30 @@ namespace loxsharp
             start = 0;
             current = 0;
             lexLength = 0;
+            reservedWords = FillKeywordDictionary();
+        }
+
+        private Dictionary<string, TokenType> FillKeywordDictionary()
+        {
+            return new Dictionary<string, TokenType>
+            {
+                {"and",TokenType.AND },
+                {"class", TokenType.CLASS },
+                {"else", TokenType.ELSE },
+                {"false", TokenType.FALSE },
+                {"fun", TokenType.FUN },
+                {"for", TokenType.FOR },
+                {"if", TokenType.IF },
+                {"nil", TokenType.NIL },
+                {"or", TokenType.OR },
+                {"print", TokenType.PRINT },
+                {"return", TokenType.RETURN },
+                {"super", TokenType.SUPER },
+                {"this", TokenType.THIS },
+                {"true", TokenType.TRUE },
+                {"var", TokenType.VAR },
+                {"while", TokenType.WHILE },
+            }; 
         }
 
         internal List<Token> AllTokens()
@@ -96,7 +121,7 @@ namespace loxsharp
                         {
                             AddNumberToken();
                         }
-                        else if (char.IsLetter(c))
+                        else if (c.IsAlpha())
                         {
                             AddIdentifierToken();
                         }
@@ -112,7 +137,20 @@ namespace loxsharp
 
         private void AddIdentifierToken()
         {
-            throw new NotImplementedException();
+            while (Peek().IsAlpha())
+            {
+                ConsumeChar();
+            }
+            var lexeme = source.Substring(start, lexLength);
+            if (reservedWords.TryGetValue(lexeme, out TokenType type))
+            {
+                AddToken(type, lexeme);
+            }
+            else
+            {
+                AddToken(TokenType.IDENTIFIER, lexeme);
+            }
+            
         }
 
         private void AddNumberToken()
@@ -203,5 +241,6 @@ namespace loxsharp
         {
             return current >= source.Length;
         }
+
     }
 }
